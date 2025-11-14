@@ -1,0 +1,16 @@
+{
+  "name": "vant4-sku",
+  "version": "1.0.0",
+  "description": "基于 Vant4 二次开发的 SKU 选择器组件",
+  "main": "Vant4SkuSelector.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["vant4", "sku", "vue3"],
+  "author": "hausholin",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^3.0.0",
+    "vant": "^4.0.0"
+  }
+}
