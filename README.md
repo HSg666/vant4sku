@@ -33,7 +33,7 @@ Vant4 SKU 百宝箱是一个基于Vant4组件库二次开发的商品规格选�
 
 **本组件完整版效果图**
 
-<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="在这里插入图片描述" style="zoom:50%;" />
+<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="在这里插入图片描述"   style="width: 300px;"  />
 
 
 
@@ -118,6 +118,7 @@ import {
 ### 1. 基础用法
 
    <img src="https://i-blog.csdnimg.cn/direct/c6b86b44afd0427bb66a379a0f629892.png" alt="在这里插入图片描述" style="zoom: 80%;" />
+
 ```html
 		<Vant4Sku 
       v-model="showSkuPopup" 
@@ -127,6 +128,7 @@ import {
 		
 		/>
 ```
+
 
 ```js
 const showSkuPopup = ref(false) 
@@ -149,7 +151,7 @@ const handleBuyNow = skuobj => {
 
 ### 2.自定义步进器（购买数量）
 
-<img src="https://i-blog.csdnimg.cn/direct/3c8ff890e73e4ca5843099b8fa2bc294.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/3c8ff890e73e4ca5843099b8fa2bc294.png" alt="在这里插入图片描述" style="width: 300px;"  />
 
 ```html
 		<Vant4Sku
@@ -177,11 +179,9 @@ const changeStepper = count => {
 
 ### 3、插槽使用
 
-
-
 #### ①、单选分期
 
-<img src="https://i-blog.csdnimg.cn/direct/85631133c43d488b8c7c12b3e899113d.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/85631133c43d488b8c7c12b3e899113d.png" alt="在这里插入图片描述" style="width: 300px;"  />
 
 ```html
 		<Vant4Sku
@@ -209,7 +209,7 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 #### ②、自定义划线价
 
-<img src="https://i-blog.csdnimg.cn/direct/33c129019b6e461a99db43557ca60078.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/33c129019b6e461a99db43557ca60078.png" alt="在这里插入图片描述" style="width: 300px;"  />
 
 ```html
 <Vant4Sku 
@@ -243,7 +243,7 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 例如：有些同学可能要在sku弹窗里面做选择配送地址，可以在这使用vant地址组件编写标签代码。
 
-<img src="https://i-blog.csdnimg.cn/direct/f6451dbc5b774a10a3e45f10b331669b.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/f6451dbc5b774a10a3e45f10b331669b.png" alt="在这里插入图片描述" style="width: 300px;"  />
 
 ```html
   <Vant4Sku 
@@ -259,7 +259,7 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 ###  4、表单相关
 
-<img src="https://i-blog.csdnimg.cn/direct/424b77905ac640d99d903045adb5ab9a.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/424b77905ac640d99d903045adb5ab9a.png" alt="在这里插入图片描述" style="width: 300px;"  />
 
 ```html
 	<Vant4Sku

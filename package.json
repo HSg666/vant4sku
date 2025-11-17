@@ -2,7 +2,9 @@
   "name": "vant4-sku",
   "version": "1.0.0",
   "description": "基于 Vant4 二次开发的 SKU 选择器组件",
-  "main": "Vant4Sku.vue",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
