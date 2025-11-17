@@ -33,7 +33,7 @@ Vant4 SKU 百宝箱是一个基于Vant4组件库二次开发的商品规格选�
 
 **本组件完整版效果图**
 
-<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="在这里插入图片描述"   style="width: 300px;"  />
+<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="本组件完整版效果图"   style="width: 300px;"  />
 
 
 
@@ -117,16 +117,15 @@ import {
 
 ### 1. 基础用法
 
-   <img src="https://i-blog.csdnimg.cn/direct/c6b86b44afd0427bb66a379a0f629892.png" alt="在这里插入图片描述" style="zoom: 80%;" />
+   <img src="https://i-blog.csdnimg.cn/direct/c6b86b44afd0427bb66a379a0f629892.png" alt="基础用法" style="width: 300px;" />
 
 ```html
-		<Vant4Sku 
-      v-model="showSkuPopup" 
-      :product="productWithSpecs" 
-      @addToCart="handleAddToCart" 
-      @buyNow="handleBuyNow">
-		
-		/>
+<Vant4Sku 
+ v-model="showSkuPopup" 
+ :product="productWithSpecs" 
+ @addToCart="handleAddToCart" 
+ @buyNow="handleBuyNow">
+/>
 ```
 
 
@@ -151,20 +150,20 @@ const handleBuyNow = skuobj => {
 
 ### 2.自定义步进器（购买数量）
 
-<img src="https://i-blog.csdnimg.cn/direct/3c8ff890e73e4ca5843099b8fa2bc294.png" alt="在这里插入图片描述" style="width: 300px;"  />
+<img src="https://i-blog.csdnimg.cn/direct/3c8ff890e73e4ca5843099b8fa2bc294.png" alt="自定义步进器" style="width: 300px;"  />
 
 ```html
-		<Vant4Sku
-			v-model="showSkuPopup"
-			:product="productWithSpecs"
-			@addToCart="handleAddToCart"
-			@buyNow="handleBuyNow"
-			:showQuotaText="showQuotaText"
-      :quantity-text="showQuantityText"
-			:stepper-min="2"
-			:stepper-max="10"
-			@change-stepper="changeStepper"
-		/>
+<Vant4Sku
+ v-model="showSkuPopup"
+ :product="productWithSpecs"
+ @addToCart="handleAddToCart"
+ @buyNow="handleBuyNow"
+ :showQuotaText="showQuotaText"
+ :quantity-text="showQuantityText"
+ :stepper-min="2"
+ :stepper-max="10"
+ @change-stepper="changeStepper"
+/>
 ```
 
 ```js
@@ -181,23 +180,22 @@ const changeStepper = count => {
 
 #### ①、单选分期
 
-<img src="https://i-blog.csdnimg.cn/direct/85631133c43d488b8c7c12b3e899113d.png" alt="在这里插入图片描述" style="width: 300px;"  />
+<img src="https://i-blog.csdnimg.cn/direct/85631133c43d488b8c7c12b3e899113d.png" alt="单选分期" style="width: 300px;"  />
 
 ```html
-		<Vant4Sku
-			v-model="showSkuPopup"
-			:product="productWithSpecs"
-			@addToCart="handleAddToCart"
-			@buyNow="handleBuyNow"
-		  :installment-options="['0', '3', '6', '12']"
-			installment-tips="(*仅支持信用卡支付)"
-      installmentTitle="选择分期"
-			:show-installment-tips="showInstallmentTips"
-      
-     >
-			<!-- 单选分期 -->
-			<template #select-installment></template>
-		</Vant4Sku>
+<Vant4Sku
+ v-model="showSkuPopup"
+ :product="productWithSpecs"
+ @addToCart="handleAddToCart"
+ @buyNow="handleBuyNow"
+ :installment-options="['0', '3', '6', '12']"
+ installment-tips="(*仅支持信用卡支付)"
+ installmentTitle="选择分期"
+ :show-installment-tips="showInstallmentTips"
+>
+  <!-- 单选分期 -->
+  <template #select-installment></template>
+</Vant4Sku>
 ```
 
 ```js
@@ -209,19 +207,19 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 #### ②、自定义划线价
 
-<img src="https://i-blog.csdnimg.cn/direct/33c129019b6e461a99db43557ca60078.png" alt="在这里插入图片描述" style="width: 300px;"  />
+<img src="https://i-blog.csdnimg.cn/direct/33c129019b6e461a99db43557ca60078.png" alt="自定义划线价" style="width: 300px;"  />
 
 ```html
 <Vant4Sku 
 	v-model="showSkuPopup" 
-  :product="productWithSpecs" 
+ :product="productWithSpecs" 
 	@addToCart="handleAddToCart" 
 	@buyNow="handleBuyNow"
 >
     <!--  用户自定义划线价 -->
 		<template #origin-price="{ sku }">
 				<span class="origin-price">特价 ¥{{ sku?.originPrice?.toFixed(2) }}</span>
-			</template>
+		</template>
  </Vant4Sku>
 ```
 
@@ -243,40 +241,39 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 例如：有些同学可能要在sku弹窗里面做选择配送地址，可以在这使用vant地址组件编写标签代码。
 
-<img src="https://i-blog.csdnimg.cn/direct/f6451dbc5b774a10a3e45f10b331669b.png" alt="在这里插入图片描述" style="width: 300px;"  />
+<img src="https://i-blog.csdnimg.cn/direct/f6451dbc5b774a10a3e45f10b331669b.png" alt="底部备用自定义插槽" style="width: 300px;"  />
 
 ```html
-  <Vant4Sku 
-    v-model="showSkuPopup" 
-    :product="productWithSpecs" 
-    @addToCart="handleAddToCart" 
-    @buyNow="handleBuyNow"
-  >
-      <!-- 备用底部插槽 -->
-       <template #footer>测试一下备用插槽</template>
-  </Vant4Sku>
+<Vant4Sku 
+ v-model="showSkuPopup" 
+ :product="productWithSpecs" 
+ @addToCart="handleAddToCart" 
+ @buyNow="handleBuyNow"
+>
+   <!-- 备用底部插槽 -->
+   <template #footer>测试一下备用插槽</template>
+</Vant4Sku>
 ```
 
 ###  4、表单相关
 
-<img src="https://i-blog.csdnimg.cn/direct/424b77905ac640d99d903045adb5ab9a.png" alt="在这里插入图片描述" style="width: 300px;"  />
+<img src="https://i-blog.csdnimg.cn/direct/424b77905ac640d99d903045adb5ab9a.png" alt="表单相关" style="width: 300px;"  />
 
 ```html
-	<Vant4Sku
-			v-model="showSkuPopup"
-			:product="productWithSpecs"
-			@addToCart="handleAddToCart"
-			@buyNow="handleBuyNow"
-			:showTel="showTel"
-			:showEmail="showEmail"
-			:showMessages="showMessages"
-			:showDate="showDate"
-			:showPicker="showPicker"
-      :columns="columns"
-			 select-title="城市"
-			:showRemark="showRemark"
+<Vant4Sku
+v-model="showSkuPopup"
+ :product="productWithSpecs"
+ @addToCart="handleAddToCart"
+ @buyNow="handleBuyNow"
+ :showTel="showTel"
+ :showEmail="showEmail"
+ :showMessages="showMessages"
+ :showDate="showDate"
+ :showPicker="showPicker"
+ :columns="columns"
+ select-title="城市"
+ :showRemark="showRemark"
 		/>
-
 ```
 
 ```js
@@ -320,13 +317,13 @@ const columns = [
 参数说明：defaultSkuId 接收string类型的值
 
 ```html
-			<Vant4Sku 
-         v-model="showSkuPopup" 
-         :product="productWithSpecs" 
-         @addToCart="handleAddToCart" 
-         @buyNow="handleBuyNow" 
-         :defaultSkuId="5"
-       />
+<Vant4Sku 
+ v-model="showSkuPopup" 
+ :product="productWithSpecs" 
+ @addToCart="handleAddToCart" 
+ @buyNow="handleBuyNow" 
+ :defaultSkuId="5"
+/>
 ```
 
 ## 数据结构
@@ -539,7 +536,7 @@ skuData = {
 
 ### 完整功能预览图
 
-<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="在这里插入图片描述" style="zoom:50%;" />
+<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="完整功能预览图" style="width: 300px;" />
 
 ```html
 <template>
