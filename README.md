@@ -60,11 +60,11 @@ pnpm add vant4-sku
 
 ```html
 <template>
-  <Vant4SkuSelector v-model="show" :product="product" />
+  <Vant4Sku v-model="show" :product="product" />
 </template>
 
 <script setup>
-import Vant4SkuSelector from 'vant4-sku'
+import Vant4Sku from 'vant4-sku'
 </script>
 ```
 
@@ -211,10 +211,10 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 ```html
 <Vant4Sku 
-	v-model="showSkuPopup" 
+ v-model="showSkuPopup" 
  :product="productWithSpecs" 
-	@addToCart="handleAddToCart" 
-	@buyNow="handleBuyNow"
+ @addToCart="handleAddToCart" 
+ @buyNow="handleBuyNow"
 >
     <!--  用户自定义划线价 -->
 		<template #origin-price="{ sku }">
