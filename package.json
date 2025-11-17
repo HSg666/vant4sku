@@ -2,11 +2,27 @@
   "name": "vant4-sku",
   "version": "1.0.0",
   "description": "基于 Vant4 二次开发的 SKU 选择器组件",
-  "main": "Vant4SkuSelector.vue",
+  "main": "Vant4Sku.vue",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["vant4", "sku", "vue3"],
+  "files": [
+    "Vant4Sku.vue",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "vant4",
+    "sku",
+    "vue3",
+    "mobile",
+    "ecommerce",
+    "components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HSg666/vant4sku.git"
+  },
   "author": "hausholin",
   "license": "MIT",
   "peerDependencies": {

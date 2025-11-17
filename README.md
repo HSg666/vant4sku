@@ -8,11 +8,13 @@
 - **Vant 版本**：Vant 4.x（已安装）
 - **Node 版本**：最低要求 16.20.1
 - **PostCSS 插件**：项目已安装 `postcss-px-to-viewport` 或类似自适应插件
-- **设计稿支持**：支持 375px 或 750px 设计稿（默认 750px）
+- **设计稿支持**： 默认适配 750px 设计稿，自动兼容小屏（375px）与中大屏设备
 
 ## 📦 组件介绍
 
-Vant4 SKU 百宝箱是一个基于Vant4组件库二次开发的“功能强大”的商品规格选择器，支持：
+Vant4 SKU 百宝箱是一个基于Vant4组件库二次开发的商品规格选择器，遵循 MIT 协议。
+
+支持：
 
 - 多规格动态选择
 - 指定选中sku组合
@@ -25,34 +27,97 @@ Vant4 SKU 百宝箱是一个基于Vant4组件库二次开发的“功能强大�
 
  规格名称和数量是不限制的，例如颜色、尺寸、版本，也可以是型号、内存，这都是你传入字段时定义的，非常自由的一款Sku组件，具体如何处理数据在下方"数据结构"会讲到。
 
-为何开发这款sku组件呢，因为vant4没有，询问过官方是否会开发，答复是不会。但我用vue3 + vant4 开发移动端经常用到sku规格选项，所以自己整合一下后开发出来了，方便自己使用和共享给兄弟们。
+为何开发这款sku组件呢，因为vant4组件库没有，询问过官方是否会开发，答复是不会。但我用vue3 + vant4 开发移动端经常用到sku规格选项，所以自己整合一下后开发出来了，方便自己使用，同时也开源给兄弟们。
 
 
 
 **本组件完整版效果图**
 
-<img src="d7b1aebda01a4a2293b87ed2b0ab0a52.gif" alt="在这里插入图片描述" style="zoom:50%;" />
+<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="在这里插入图片描述" style="zoom:50%;" />
 
 
 
 ## 🚀 安装方式
 
 ```bash
-# 通过 npm 安装
-npm install Vant4Sku
+# 使用 npm
+npm install vant4-sku
 
-# 在项目中引入
-import { Vant4Sku } from '@/components/Vant4Sku.vue'
+# 或使用 yarn
+yarn add vant4-sku
 
-main.ts
-Vue.use(Vant4Sku);
+# 或使用 pnpm
+pnpm add vant4-sku
 ```
 
+## ⚠️ 依赖说明
+
+ 本组件依赖 [Vant4](https://vant-ui.github.io/vant/#/zh-CN) ，使用前请确保项目中已安装并正确引入 Vant。 
+
+### ✅ 使用方式
+
+用户安装后**无需在 `main.ts` 中注册组件**，可直接在页面中按需引入使用：
+
+```html
+<template>
+  <Vant4SkuSelector v-model="show" :product="product" />
+</template>
+
+<script setup>
+import Vant4SkuSelector from 'vant4-sku'
+</script>
+```
+
+### ⚠️ 注意事项
+
+ 由于本组件内部使用了多个 Vant 组件（如 `van-popup`、`van-tag`、`van-stepper` 等），因此用户必须确保项目中已正确安装并注册 Vant。 
+
+#### 1. 全局引入 Vant（推荐）
+
+```js
+// main.ts
+import { createApp } from 'vue'
+import App from './App.vue'
+import Vant from 'vant'
+import 'vant/lib/index.css'
+
+const app = createApp(App)
+app.use(Vant)
+app.mount('#app')
+```
+
+#### 2. 按需引入 Vant
+
+如果项目中使用了按需引入，请确保注册了以下 Vant 组件：
+
+```js
+import {
+  Popup,
+  Tag,
+  Stepper,
+  CellGroup,
+  Cell,
+  Field,
+  Calendar,
+  Picker,
+  ActionBar,
+  ActionBarIcon,
+  ActionBarButton,
+  RadioGroup,
+  Radio,
+  ImagePreview,
+  Icon,
+  showToast
+} from 'vant'
+```
+
+ 否则组件将无法正常显示或报错。 
 
 ## 🎯 代码演示
+
 ### 1. 基础用法
 
-   <img src="8094100fb5694e348a2404c0c7692dd4.png" alt="在这里插入图片描述" style="zoom: 80%;" />
+   <img src="https://i-blog.csdnimg.cn/direct/c6b86b44afd0427bb66a379a0f629892.png" alt="在这里插入图片描述" style="zoom: 80%;" />
 ```html
 		<Vant4Sku 
       v-model="showSkuPopup" 
@@ -84,7 +149,7 @@ const handleBuyNow = skuobj => {
 
 ### 2.自定义步进器（购买数量）
 
-<img src="46990d8aa6c94ec29c6c76ab2c402769.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/3c8ff890e73e4ca5843099b8fa2bc294.png" alt="在这里插入图片描述" style="zoom:80%;" />
 
 ```html
 		<Vant4Sku
@@ -116,7 +181,7 @@ const changeStepper = count => {
 
 #### ①、单选分期
 
-<img src="3f3df2a1195a467d93098f6986596bb1.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/85631133c43d488b8c7c12b3e899113d.png" alt="在这里插入图片描述" style="zoom:80%;" />
 
 ```html
 		<Vant4Sku
@@ -144,7 +209,7 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 #### ②、自定义划线价
 
-<img src="07df363af22c480b97aa6b5f4b13008d.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/33c129019b6e461a99db43557ca60078.png" alt="在这里插入图片描述" style="zoom:80%;" />
 
 ```html
 <Vant4Sku 
@@ -178,7 +243,7 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 例如：有些同学可能要在sku弹窗里面做选择配送地址，可以在这使用vant地址组件编写标签代码。
 
-<img src="3f8688377bce485e8e4978e2095209de.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/f6451dbc5b774a10a3e45f10b331669b.png" alt="在这里插入图片描述" style="zoom:80%;" />
 
 ```html
   <Vant4Sku 
@@ -194,7 +259,7 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 ###  4、表单相关
 
-<img src="42bf153189d94c0f968cab17dff79e35.png" alt="在这里插入图片描述" style="zoom:80%;" />
+<img src="https://i-blog.csdnimg.cn/direct/424b77905ac640d99d903045adb5ab9a.png" alt="在这里插入图片描述" style="zoom:80%;" />
 
 ```html
 	<Vant4Sku
@@ -240,7 +305,7 @@ const columns = [
 ```
 点击"立即购买"后整个sku组件打印的数据如下：
 
-![在这里插入图片描述](f25be449cbea419abbae1ff88da856b2.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b3975675f81d4969a609eb1957be80ab.png)
 
 ### 5、可传入指定skuId
 
@@ -474,7 +539,7 @@ skuData = {
 
 ### 完整功能预览图
 
-<img src="d7b1aebda01a4a2293b87ed2b0ab0a52.gif" alt="在这里插入图片描述" style="zoom:50%;" />
+<img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="在这里插入图片描述" style="zoom:50%;" />
 
 ```html
 <template>
@@ -623,4 +688,8 @@ const changeStepper = count => {
 
 
 组件已内置移动端适配，支持安全区域和触摸优化。
+
+## ⚠️ 免责声明
+
+本组件按“现状”提供，不提供任何形式的担保。作者不对因使用本组件而导致的任何直接或间接损失承担责任。
 
