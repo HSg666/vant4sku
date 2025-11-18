@@ -1,6 +1,6 @@
 {
   "name": "vant4-sku",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "基于 Vant4 二次开发的 SKU 选择器组件",
   "main": "index.js",
   "module": "index.js",
