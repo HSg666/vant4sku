@@ -14,7 +14,7 @@
       <div class="vant4-popup-header" @click="openImagePreview">
         <!-- sku图片区 -->
         <div style="position: relative" v-if="showImage">
-          <img :src="currentMainImg" alt="" class="vant4-popup-img" />
+          <img :src="currentMainImg" alt="" referrerpolicy="no-referrer" class="vant4-popup-img" />
           <van-icon name="enlarge" size="14" class="vant4-popup-icon" />
         </div>
         <div class="vant4-popup-info">

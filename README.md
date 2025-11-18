@@ -807,3 +807,31 @@ Vue3+TS+移动端开发脚手架：[基于Vue3.3 + TS + Vant4 + Vite5 + Pinia + 
 
 本组件按“现状”提供，不提供任何形式的担保。作者不对因使用本组件而导致的任何直接或间接损失承担责任。
 
+
+
+## 如何更新到最新版本
+
+```js
+// 自动
+npm install vant4-sku@latest   
+yarn add vant4-sku@latest
+
+// 手动    前提是你知道版本号
+npm install vant4-sku@1.X.X   
+yarn add vant4-sku@1.X.X
+```
+
+
+
+
+## 更新日志
+
+### v1.0.2
+- 修复默认 SKU 无法自动选中的问题
+- 优化图片展示逻辑
+- 修复部分 TypeScript 类型错误
+
+### v1.0.3
+- 解决img图片因防盗链问题无法正常加载的问题
+
+
