@@ -10,13 +10,11 @@
     style="max-height: 80%; min-height: 50%"
   >
     <div class="vant4-sku-popup">
-      <!-- <p v-if="!selectedSku && product.skulist.every(sku => sku.stock === 0)" style="color: #ff9719">该商品暂时无货，敬请期待补货通知！</p> -->
-
       <!-- 商品头部 -->
       <div class="vant4-popup-header" @click="openImagePreview">
         <!-- sku图片区 -->
         <div style="position: relative" v-if="showImage">
-          <img :src="selectedSku?.img || product.mainImage" alt="" class="vant4-popup-img" />
+          <img :src="currentMainImg" alt="" class="vant4-popup-img" />
           <van-icon name="enlarge" size="14" class="vant4-popup-icon" />
         </div>
         <div class="vant4-popup-info">
@@ -385,7 +383,11 @@ const isShowDate = ref(false);
 
 // 当前主图
 const currentMainImg = computed(() => {
-  return selectedSku.value?.img || props.product.mainImage;
+  return (
+    selectedSku.value?.img ||
+    props.product.mainImage ||
+    "https://i-blog.csdnimg.cn/direct/9362ba1da3794a0ea6cc1ea711c70a90.jpeg"
+  );
 });
 
 // 获取当前选中的 SKU
@@ -491,10 +493,9 @@ const selectOption = (specKey, option) => {
 
 // 打开图片预览
 const openImagePreview = () => {
-  const url = selectedSku.value?.img || props.product.mainImage;
-  previewImageUrl.value = url;
+  previewImageUrl.value = currentMainImg.value;
   showImagePreview({
-    images: [url],
+    images: [currentMainImg.value],
     closeable: true,
   });
   showImagePreviewPopup.value = false;

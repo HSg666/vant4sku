@@ -6,7 +6,7 @@
 
 - **Vue 版本**：Vue 3.x
 - **Vant 版本**：Vant 4.x（已安装）
-- **Node 版本**：最低要求 16.20.1
+- **Node 版本**：最低要求 18.20.2 或 20.19.3及以上
 - **PostCSS 插件**：项目已安装 `postcss-px-to-viewport` 或类似自适应插件
 - **设计稿支持**： 默认适配 750px 设计稿，自动兼容小屏（375px）与中大屏设备
 
@@ -54,21 +54,18 @@ pnpm add vant4-sku
 
  本组件依赖 [Vant4](https://vant-ui.github.io/vant/#/zh-CN) ，使用前请确保项目中已安装并正确引入 Vant。 
 
-### ✅ 使用方式
+```js
+// vant4安装命令,项目已安装的跳过这一步，直接看下面的代码演示。
+npm i vant  # 通过 npm 安装
 
-用户安装后**无需在 `main.ts` 中注册组件**，可直接在页面中按需引入使用：
+yarn add vant  # 通过 yarn 安装
 
-```html
-<template>
-  <Vant4Sku v-model="show" :product="product" />
-</template>
+pnpm add vant  # 通过 pnpm 安装
 
-<script setup>
-import Vant4Sku from 'vant4-sku'
-</script>
+bun add vant # 通过 Bun 安装
 ```
 
-### ⚠️ 注意事项
+### 注意事项
 
  由于本组件内部使用了多个 Vant 组件（如 `van-popup`、`van-tag`、`van-stepper` 等），因此用户必须确保项目中已正确安装并注册 Vant。 
 
@@ -119,21 +116,72 @@ import {
 
    <img src="https://i-blog.csdnimg.cn/direct/c6b86b44afd0427bb66a379a0f629892.png" alt="基础用法" style="width: 300px;" />
 
+
+
 ```html
-<Vant4Sku 
- v-model="showSkuPopup" 
- :product="productWithSpecs" 
- @addToCart="handleAddToCart" 
- @buyNow="handleBuyNow">
-/>
+<template>
+  <van-button type="primary"  @click="showSkuPopup = true">显示Sku商品规格</van-button>	
+  
+  <Vant4Sku 
+   v-model="showSkuPopup" 
+   :product="productWithSpecs" 
+   @addToCart="handleAddToCart" 
+   @buyNow="handleBuyNow"
+  />
+</template>
 ```
 
-
-```js
+```html
+<script setup>
+import Vant4Sku from 'vant4-sku'
+import { ref, computed } from 'vue'
+// 源码位置：这个在下面的数据结构 ——> 工具函数中
+import { generateSpecs } from './utils/generateSpecs'   
+  
 const showSkuPopup = ref(false) 
 const selectedSku = ref({}) // 组件提交的sku总数据
+// 商品数据结构
+const product = ref({
+  id: 1,
+  name: 'XX商品',
+  mainImage: 'https://i-blog.csdnimg.cn/direct/78acd709017b4ddd857ce1a89079ab60.jpeg',
+  skulist: [
+    {
+      id: 1,
+      price: 199,
+      originPrice: 299,
+      stock: 100,
+      img: 'https://i-blog.csdnimg.cn/direct/78acd709017b4ddd857ce1a89079ab60.jpeg',
+      color: '深灰绿色',
+      size: '床单款1.8M床',
+    },
+    {
+      id: 2,
+      price: 199,
+      originPrice: 299,
+      stock: 50,
+      img: 'https://i-blog.csdnimg.cn/direct/6f4997df324b465da2b57d0f45944bb9.jpeg',
+      color: '烟灰卡其',
+      size: '床单款1.5M床',
+    },
+  ],
+})
 
-productWithSpecs 需要处理后才展示，如何会讲到如何处理以及提供sku格式化工具方法。
+// 映射字段
+const fieldMap = {
+  color: '颜色',
+  size: '尺寸',
+}
+
+
+// 自动生成规格结构
+const productWithSpecs = computed(() => {
+  return {
+    ...product,
+    specs: generateSpecs(product.skulist, fieldMap),
+  }
+})
+console.log(productWithSpecs.value, 'productWithSpecs')
 
 const handleAddToCart = skuobj => {
 	selectedSku.value = skuobj.sku
@@ -144,9 +192,9 @@ const handleBuyNow = skuobj => {
 	selectedSku.value = skuobj.sku
 	console.log('立即购买:', skuobj)
 }
+</script>
+
 ```
-
-
 
 ### 2.自定义步进器（购买数量）
 
@@ -199,9 +247,10 @@ const changeStepper = count => {
 ```
 
 ```js
-:installment-options是分期数组，0会自动转化为"不分期"。 
-:installment-tips  可自定义分期提示文案
-installmentTitle   可自定义修改分期标题
+/* :installment-options是分期数组，0会自动转化为"不分期"。 
+   :installment-tips  可自定义分期提示文案
+    installmentTitle   可自定义修改分期标题
+*/
 const showInstallmentTips = ref(true) // 是否显示分期提示
 ```
 
@@ -261,7 +310,7 @@ const showInstallmentTips = ref(true) // 是否显示分期提示
 
 ```html
 <Vant4Sku
-v-model="showSkuPopup"
+ v-model="showSkuPopup"
  :product="productWithSpecs"
  @addToCart="handleAddToCart"
  @buyNow="handleBuyNow"
@@ -273,7 +322,7 @@ v-model="showSkuPopup"
  :columns="columns"
  select-title="城市"
  :showRemark="showRemark"
-		/>
+/>
 ```
 
 ```js
@@ -332,44 +381,49 @@ const columns = [
 
 #### 1、工具函数
 
-我给你准备了自动生成规格结构的工具函数，在你项目的utils中创建一个工具函数js文件，然后在组件中引入
+我给你准备了自动生成规格结构的工具函数，在你项目的utils文件夹中创建一个工具函数ts文件，然后在组件中引入。（如果没有utils文件就新建一个）
 
 ```js
-/utils/generateSpecs.js
+//  utils/generateSpecs.ts  
 
 /**
  * 从 skulist 自动生成 specs 结构，并映射字段名为中文
- * @param {Array} skulist - SKU 列表
- * @param {Object} fieldMap - 字段名映射表，如 { color: '颜色' }
- * @returns {Array} specs - 规格结构
+ * @param skulist - SKU 列表
+ * @param fieldMap - 字段名映射表，如 { color: '颜色' }
+ * @returns specs - 规格结构
  */
-export function generateSpecs(skulist, fieldMap = {}) {
-	if (!skulist || skulist.length === 0) return []
+export function generateSpecs(
+  skulist: Array<Record<string, any>>,
+  fieldMap: Record<string, string> = {}
+): Array<{ name: string; key: string; options: Array<any> }> {
+  if (!skulist || skulist.length === 0) return [];
 
-	// 自动从 fieldMap 的 key 中提取 includeFields
-	const includeFields = Object.keys(fieldMap)
+  // 自动从 fieldMap 的 key 中提取 includeFields
+  const includeFields = Object.keys(fieldMap);
 
-	// 只从 skulist 中提取指定字段作为规格维度
-	const allKeys = [...new Set(skulist.flatMap(sku => Object.keys(sku)))].filter(key => includeFields.includes(key))
+  // 只从 skulist 中提取指定字段作为规格维度
+  const allKeys = [...new Set(skulist.flatMap((sku) => Object.keys(sku)))].filter((key) =>
+    includeFields.includes(key)
+  );
 
-	// 为每个 key 生成 options，并映射中文名
-	const specs = allKeys.map(key => {
-		const options = [...new Set(skulist.map(sku => sku[key]))].filter(Boolean)
-		return {
-			name: fieldMap[key] || key, // 显示用的中文名
-			key, // 用于匹配的原始字段名
-			options,
-		}
-	})
+  // 为每个 key 生成 options，并映射中文名
+  const specs = allKeys.map((key) => {
+    const options = [...new Set(skulist.map((sku) => sku[key]))].filter(Boolean);
+    return {
+      name: fieldMap[key] || key, // 显示用的中文名
+      key, // 用于匹配的原始字段名
+      options,
+    };
+  });
 
-	return specs
+  return specs;
 }
 ```
 
-在你组件中引入工具函数文件。@/utils是我项目配置的路径别名，你如果没配就写你项目的相对路径 ../  
+在你组件中引入工具函数文件。你如果没配路径别名alias就写你项目的相对路径 ../，已配可这样写@/utils。
 
 ```js
-import { generateSpecs } from '@/utils/generateSpecs' 
+import { generateSpecs } from './utils/generateSpecs' 
 ```
 
 #### 2、准备好商品数据结构
@@ -378,20 +432,24 @@ skulist数组下的组合对象指定字段：
 
 这几个必须保持一致，因为组件内部使用到这些字段。 其他字段随便你传，到时我都会返回给你。
 
-| 参数 | 说明        | 类型     |
-| ---- | ----------- | -------  |
-| id   | sku组合的id | Number   |
-| img   | sku组合图 | String |
-| originPrice   | 原价 | Number |
-| price   | 优惠价 | Number |
-| productCode   | 商品编号 | String |
-| stock   | 库存 | Number |
+| 字段名 |        | 说明        | 类型     |
+| ---- | ---- | ---- | ----------- | -------  |
+| id   |     | 主商品id | Number   |
+| name   |    | 主商品名称 | String   |
+| mainImage   |     |  主图 | String |
+|     | img   | sku组合图 | String |
+|     | originPrice   | 原价 | Number |
+|     | price   | 优惠价 | Number |
+|     | productCode   | 商品编号 | String |
+|     | stock   | 库存 | Number |
 
 ```js
 // 商品数据结构
 const product = {
-  id:1,
-  name: 'XX商品',
+  id:1, 
+  name: 'XX商品', 
+  mainImage: '',  
+  // ... 其他你传入的组件未用到的字段，到时选完sku规格我都会原路返回给你。
   skulist: [
     {
       id: 1,
@@ -424,7 +482,6 @@ const product = {
 const fieldMap = {
 	color: '颜色',
 	size: '尺寸',
-  ...
 }
 
 // 自动生成规格结构
@@ -445,6 +502,8 @@ tips：要处理成下面的数据结构，传入组件就能完美显示了。
 ```js
 {
   id:1,
+  name: 'XX商品', // 主商品名称
+  mainImage: '', // 主图
   // ... 你传入的其他商品信息字段
   skulist:[
     {
@@ -504,6 +563,8 @@ const columns = [
 ```js
 skuData = {
   id:1, // 商品id,
+  name: 'XX商品', // 主商品名称 
+  mainImage: '', // 主图
   // ... 其他商品字段也都会返回给你
 	// sku组合对象
 	sku: {
@@ -575,9 +636,16 @@ skuData = {
 		</Vant4Sku>
 
 </template>
+```
+
+
+
+```html
 <script>
-import { Button} from 'vant'
-import { generateSpecs } from '@/utils/generateSpecs'
+import { ref, computed } from 'vue'
+import Vant4Sku from 'vant4-sku'
+import { generateSpecs } from './utils/generateSpecs'
+
   
 const showSkuPopup = ref(false) // 是否显示sku弹窗
 const selectedSku = ref({}) // 选中的sku总数据
@@ -592,6 +660,34 @@ const showQuantityText = ref('我要买') // 更改购买数量标题
 const showInstallmentTips = ref(true) // 是否显示分期提示
 const showImage = ref(false) // 是否显示图片
 
+// 商品数据结构
+const product = ref({
+  id: 1,
+  name: 'XX商品',
+  mainImage: 'https://i-blog.csdnimg.cn/direct/78acd709017b4ddd857ce1a89079ab60.jpeg',
+  skulist: [
+    {
+      id: 1,
+      price: 199,
+      originPrice: 299,
+      stock: 100,
+      img: 'https://i-blog.csdnimg.cn/direct/78acd709017b4ddd857ce1a89079ab60.jpeg',
+      color: '深灰绿色',
+      size: '床单款1.8M床',
+    },
+    {
+      id: 2,
+      price: 199,
+      originPrice: 299,
+      stock: 50,
+      img: 'https://i-blog.csdnimg.cn/direct/6f4997df324b465da2b57d0f45944bb9.jpeg',
+      color: '烟灰卡其',
+      size: '床单款1.5M床',
+    },
+  ],
+})
+
+// 选择器
 const columns = [
 	{ text: '杭州', value: 'Hangzhou' },
 	{ text: '宁波', value: 'Ningbo' },
@@ -600,9 +696,22 @@ const columns = [
 	{ text: '湖州', value: 'Huzhou' },
 ]
 
+// 映射字段
+const fieldMap = {
+  color: '颜色',
+  size: '尺寸',
+}
+
+// 自动生成规格结构
+const productWithSpecs = computed(() => {
+  return {
+    ...product,
+    specs: generateSpecs(product.skulist, fieldMap),
+  }
+})
+
 const handleAddToCart = skuobj => {
 	selectedSku.value = skuobj.sku
-
 	console.log('加入购物车:', skuobj)
 }
 
@@ -682,9 +791,17 @@ const changeStepper = count => {
 }
 ```
 
-
-
 组件已内置移动端适配，支持安全区域和触摸优化。
+
+
+
+## 拓展：
+
+PostCSS安装教程： https://blog.csdn.net/Steven_Son/article/details/135554296
+
+NVM安装教程：[一台电脑如何安装多个不同版本的Node并能自由切换](https://blog.csdn.net/Steven_Son/article/details/135151622?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522f3795536d09d08fa8f870fe2df6415f3%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=f3795536d09d08fa8f870fe2df6415f3&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-135151622-null-null.nonecase&utm_term=nvm&spm=1018.2226.3001.4450) 
+
+Vue3+TS+移动端开发脚手架：[基于Vue3.3 + TS + Vant4 + Vite5 + Pinia + Tailwindcss搭建的H5移动端开发模板](https://blog.csdn.net/Steven_Son/article/details/135918101)
 
 ## ⚠️ 免责声明
 
