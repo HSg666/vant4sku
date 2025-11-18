@@ -31,6 +31,14 @@ Vant4 SKU 百宝箱是一个基于 Vant4 组件库二次开发的商品规格选
 
 [在线演示地址](https://hsg666.github.io/test-skucomponent/)
 
+NPM：https://www.npmjs.com/package/vant4-sku?activeTab=readme
+
+Github：https://github.com/HSg666/vant4sku
+
+Gitee：https://gitee.com/HaushoLin/vant4sku
+
+
+
 **本组件完整版效果图**
 
 <img src="https://i-blog.csdnimg.cn/direct/b553c69b067441ecb727858cdd603967.gif" alt="本组件完整版效果图"   style="width: 300px;"  />
@@ -761,6 +769,8 @@ PostCSS 安装教程： https://blog.csdn.net/Steven_Son/article/details/1355542
 NVM 安装教程：[一台电脑如何安装多个不同版本的 Node 并能自由切换](https://blog.csdn.net/Steven_Son/article/details/135151622?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522f3795536d09d08fa8f870fe2df6415f3%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=f3795536d09d08fa8f870fe2df6415f3&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-135151622-null-null.nonecase&utm_term=nvm&spm=1018.2226.3001.4450)
 
 Vue3+TS+移动端开发脚手架：[基于 Vue3.3 + TS + Vant4 + Vite5 + Pinia + Tailwindcss 搭建的 H5 移动端开发模板](https://blog.csdn.net/Steven_Son/article/details/135918101)
+
+个人博客：https://blog.csdn.net/Steven_Son
 
 ## ⚠️ 免责声明
 
